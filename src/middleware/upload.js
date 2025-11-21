@@ -6,8 +6,8 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "warranty_bills",
-    allowed_formats: ["jpg", "png", "jpeg"]
-  }
+    allowed_formats: ["jpg", "png", "jpeg"],
+  },
 });
 
 const upload = multer({ storage });
