@@ -2,7 +2,8 @@ const Warranty = require("../models/warrantyModel");
 
 const createWarranty = async (req, res) => {
   try {
-    const { productName, purchaseDate, warrantyExpiry, shopName, billImage } = req.body;
+    const { productName, purchaseDate, warrantyExpiry, shopName } = req.body;
+    const billImageUrl = req.file?.path || "";
 
     const warranty = await Warranty.create({
       userId: req.user.id,
@@ -10,12 +11,15 @@ const createWarranty = async (req, res) => {
       purchaseDate,
       warrantyExpiry,
       shopName,
-      billImage
+      billImage: billImageUrl,
     });
 
-    res.json({ message: "Warranty added", warranty });
+    return res.status(201).json({
+      message: "Warranty added successfully!",
+      warranty,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
